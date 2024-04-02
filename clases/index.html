@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- agregando eventos en vue -->
+        <button v-on:click="changeVisibility">Mostrar/ocultar</button>
+                <!-- condicional -->
+
+            <!-- esto es un componente en vue -->
+            <tv-show-list>
+            </tv-show-list>
+            
+            <!-- para recorrer arrays en vue  -->
+            <!-- <li v-for="(show,index) in tvshows" :key="index" >
+                <strong>{{show.name}}</strong> ({{show.temporadas}})
+            </li> -->
+        <!-- <div v-else>
+            no hay datos
+        </div> -->
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.js"></script>
+    <script>
+        Vue.component('tv-show-list',{
+            data:function(){
+                return{
+                 tvshows:[
+                    {name:"Al fondo hay sitio", temporadas:11},
+                    {name:"Dragon Ball", temporadas:5},
+                    {name:"pataclaun",temporadas:2}
+                 ]
+                }
+            },
+            template:`
+                <ul>
+                    <tv-show
+                        v-for="(show,index) in tvshows"
+                        :key="index"
+                        :name="show.name"
+                        :temporadas="show.temporadas">
+                    </tv-show>
+                </ul>
+            `
+        })
+
+
+        Vue.component('tv-show',{
+            props:{
+                name:String,
+                temporadas:Number,
+            },
+            template:`
+                <li>
+                    <strong>{{name}}</strong> ({{temporadas}})
+                </li>    
+            `
+        })
+        const app =new Vue({
+            el:'#app',
+            data:{
+                mensaje:"hola vue.js",
+                mostrar:true
+            },
+            methods:{
+                    changeVisibility:function(){
+                        this.mostrar =!this.mostrar
+                    }
+            }
+        })
+    </script>
+</body>
+</html>
